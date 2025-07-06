@@ -76,7 +76,7 @@ class Archibot:
         doc.close()
 
     def highlight_keyword(self, page, keyword, color):
-        text_instances = page.search_for(keyword, quads=True)
+        text_instances = page.search_for(keyword, quads=True, flags=fitz.TEXT_IGNORECASE)
         for inst in text_instances:
             highlight = page.add_highlight_annot(inst.rect)
             highlight.set_colors(stroke=color, fill=color)
