@@ -134,7 +134,17 @@ class Archibot:
         return sections
 
     def search_keywords(self, text: str, keywords: List[str]) -> List[str]:
-        return [kw for kw in keywords if re.search(kw, text, re.IGNORECASE)]
+        """Return keywords found in the provided text.
+
+        Regex special characters within keywords are escaped so that each
+        keyword is searched for literally, and the search is performed in a
+        case-insensitive manner.
+        """
+        return [
+            kw
+            for kw in keywords
+            if re.search(re.escape(kw), text, re.IGNORECASE)
+        ]
 
 def analyze_devis(text: str) -> Dict:
     bot = Archibot()
