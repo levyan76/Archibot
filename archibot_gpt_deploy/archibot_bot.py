@@ -1,3 +1,5 @@
+"""Analyze construction specification PDFs and highlight sections.
+Archibot searches for keywords, annotates pages, and summarizes results."""
 
 import re
 import json
