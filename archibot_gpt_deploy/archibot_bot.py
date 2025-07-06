@@ -134,7 +134,17 @@ class Archibot:
         return sections
 
     def search_keywords(self, text: str, keywords: List[str]) -> List[str]:
-        return [kw for kw in keywords if re.search(kw, text, re.IGNORECASE)]
+        """Return keywords found in ``text``.
+
+        Each keyword is treated as a literal string. Prior implementation used
+        ``re.search`` directly with the keyword, which interprets characters
+        such as ``.`` or ``/`` as regular expression meta characters. This
+        caused false positives or failed matches for specifications like
+        ``"CAN/CGSB 93.3"``. To avoid this we escape each keyword before
+        searching.
+        """
+
+        return [kw for kw in keywords if re.search(re.escape(kw), text, re.IGNORECASE)]
 
 def analyze_devis(text: str) -> Dict:
     bot = Archibot()
